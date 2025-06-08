@@ -1,5 +1,6 @@
-package tvmaze.com.example;
+package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Serie {
@@ -7,45 +8,40 @@ public class Serie {
     private String nome;
     private String idioma;
     private List<String> generos;
-    private Double notaGeral;
+    private Double classificacao;
     private String estado;
-    private String dataEstreia;
-    private String dataTermino;
+    private String estreia;
+    private String termino;
     private String emissora;
 
-    // Construtores
-    public Serie(String id, String nome, String idioma, List<String> generos, Double notaGeral,
-                 String estado, String dataEstreia, String dataTermino, String emissora) {
+    public Serie(String id, String nome, String idioma, List<String> generos, Double classificacao,
+                 String estado, String estreia, String termino, String emissora) {
         this.id = id;
         this.nome = nome;
-        this.idioma = idioma;
-        this.generos = generos;
-        this.notaGeral = notaGeral;
-        this.estado = estado;
-        this.dataEstreia = dataEstreia;
-        this.dataTermino = dataTermino;
-        this.emissora = emissora;
+        this.idioma = idioma != null ? idioma : "Desconhecido";
+        this.generos = generos != null ? generos : new ArrayList<>();
+        this.classificacao = classificacao != null ? classificacao : 0.0;
+        this.estado = estado != null ? estado : "Desconhecido";
+        this.estreia = estreia != null ? estreia : "Desconhecido";
+        this.termino = termino != null ? termino : "Desconhecido";
+        this.emissora = emissora != null ? emissora : "Desconhecido";
     }
 
     public String getId() { return id; }
     public String getNome() { return nome; }
     public String getIdioma() { return idioma; }
     public List<String> getGeneros() { return generos; }
-    public Double getNotaGeral() { return notaGeral != null ? notaGeral : 0.0; }
+    public Double getClassificacao() { return classificacao; }
     public String getEstado() { return estado; }
-    public String getDataEstreia() { return dataEstreia; }
-    public String getDataTermino() { return dataTermino; }
+    public String getEstreia() { return estreia; }
+    public String getTermino() { return termino; }
     public String getEmissora() { return emissora; }
 
     @Override
     public String toString() {
-        return "Série: " + nome + "\n" +
-                "Idioma: " + idioma + "\n" +
-                "Gêneros: " + generos + "\n" +
-                "Nota Geral: " + notaGeral + "\n" +
-                "Estado: " + estado + "\n" +
-                "Data de Estreia: " + dataEstreia + "\n" +
-                "Data de Término: " + (dataTermino != null ? dataTermino : "N/A") + "\n" +
-                "Emissora: " + emissora;
+        return String.format(
+            "Nome: %s\nIdioma: %s\nGêneros: %s\nClassificação: %.1f\nEstado: %s\nEstreia: %s\nTérmino: %s\nEmissora: %s\n",
+            nome, idioma, generos.isEmpty() ? "Nenhum" : String.join(", ", generos), classificacao, estado, estreia, termino, emissora
+        );
     }
 }
